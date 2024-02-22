@@ -1,0 +1,223 @@
+❏ Tenemos 3 tablas: Track in spotify, Track in competition, Track technical info 
+
+➔ Procesar y preparar base de datos
+
+☑️ Track_ in_ competition - Identificando nulos
+
+SELECT
+  COUNT(*)
+FROM
+  `proyecto-hipotesis-403717.Pruebas.track_in_competition`
+WHERE
+  in_shazam_charts IS NULL 
+	
+☑️ Identificar y manejar valores nulos | Track_ technical_ info
+
+ SELECT COUNT(*)
+FROM `proyecto-hipotesis-403717.Pruebas.track_in_technical_info`
+WHERE speechiness__ IS NULL
+
+☑️ Identificar y manejar valores duplicados | Track_ in_ spotify   
+
+SELECT
+  track_name,
+  artist_s__name,
+  COUNT(*) AS cantidad
+FROM
+  `proyecto-hipotesis-403717.Pruebas.track_in_spotify`
+GROUP BY
+  track_name,
+  artist_s__name
+HAVING
+  COUNT(*) > 1
+
+☑️ Identificar y manejar datos fuera del alcance del análisis | Track_ technical_ info
+
+SELECT 
+* EXCEPT (key, mode)
+FROM 
+`proyecto-hipotesis-403717.Pruebas.track_in_technical_info`
+
+☑️ Identificar y manejar datos discrepantes en variables categóricas | Track in spotify
+
+SELECT
+  artist_s__name,
+  REGEXP_REPLACE(artist_s__name, r"[^a-zA-Z0-9]", " ") AS artist_s__name_limpio
+FROM
+  `proyecto-hipotesis-403717.Pruebas.track_in_spotify`
+
+☑️ Identificar y manejar datos discrepantes en variables categóricas | Track in spotify
+
+SELECT
+  track_name,
+  REGEXP_REPLACE(track_name, r"[^a-zA-Z0-9]", " ") AS track_name_limpio
+FROM
+  `proyecto-hipotesis-403717.Pruebas.track_in_spotify`
+
+☑️ Identificar y manejar datos discrepantes en variables numéricas | Track in competition
+
+❗ Utilizar comandos como MAX, MIN y AVG para identificar valores discrepantes en variables numéricas
+
+SELECT
+  MAX(in_apple_playlists),
+  MIN(in_apple_playlists),
+  AVG(in_apple_playlists),
+  MAX(in_apple_charts),
+  MIN(in_apple_charts),
+  AVG(in_apple_charts),
+  MAX(in_deezer_playlists),
+  MIN(in_deezer_playlists),
+  AVG(in_deezer_playlists),
+  MAX(in_deezer_charts),
+  MIN(in_deezer_charts),
+  AVG(in_deezer_charts),
+  MAX(in_shazam_charts),
+  MIN(in_shazam_charts),
+  AVG(in_shazam_charts),
+FROM
+  `proyecto-hipotesis-403717.Pruebas.track_in_competition`
+
+☑️ Identificar y manejar datos discrepantes en variables numéricas | Track in spotify
+
+❗ Utilizar comandos como MAX, MIN y AVG para identificar valores discrepantes en variables numéricas
+
+SELECT
+  MAX(in_spotify_playlists),
+  MIN(in_spotify_playlists),
+  AVG(in_spotify_playlists),
+  MAX(in_spotify_charts),
+  MIN(in_spotify_charts),
+  AVG(in_spotify_charts),
+FROM
+  `proyecto-hipotesis-403717.Pruebas.track_in_spotify`
+
+ ☑️ Identificar y manejar datos discrepantes en variables numéricas | Track technical info
+
+❗ Utilizar comandos como MAX, MIN y AVG para identificar valores discrepantes en variables numéricas
+
+SELECT
+  MAX(bpm),
+  MIN(bpm),
+  AVG(bpm),
+  MAX(danceability__),
+  MIN(danceability__),
+  AVG(danceability__),
+  MAX(valence__),
+  MIN(valence__),
+  AVG(valence__),
+  MAX(energy__),
+  MIN(energy__),
+  AVG(energy__),
+  MAX(acousticness__),
+  MIN(acousticness__),
+  AVG(acousticness__),
+  MAX(instrumentalness__),
+  MIN(instrumentalness__),
+  AVG(instrumentalness__),
+  MAX(liveness__),
+  MIN(liveness__),
+  AVG(liveness__),
+  MAX(speechiness__),
+  MIN(speechiness__),
+  AVG(speechiness__),
+FROM
+  `proyecto-hipotesis-403717.Pruebas.track_in_technical_info`
+
+ ☑️ Cambiar tipo de dato y limpieza de la variable | Track in spotify️
+
+SELECT
+  SAFE_CAST(streams AS INT64) AS stream_limpia
+FROM
+  `proyecto-hipotesis-403717.Pruebas.track_in_spotify`
+WHERE
+  streams NOT LIKE '%[^0-9]%'
+
+ ☑️ Track_ in_ spotify - Crear nuevas variables
+
+ SELECT
+CONCAT(released_year, - released_month, - released_day),
+FROM `proyecto-hipotesis-403717.Pruebas.track_in_spotify` 
+                 
+✅ Crear view | Competition limpia
+
+CREATE OR REPLACE VIEW			
+`proyecto-hipotesis-403717.Pruebas.Competition_limpia` AS			
+SELECT			
+* EXCEPT (in_shazam_charts),			
+FROM `proyecto-hipotesis-403717.Pruebas.track_in_competition` 
+
+✅ Crear view | Technical info limpia
+
+CREATE OR REPLACE VIEW			
+`proyecto-hipotesis-403717.Pruebas.Technical_info_limpia` AS			
+SELECT			
+* EXCEPT (key, mode),			
+FROM `proyecto-hipotesis-403717.Pruebas.track_in_technical_info` 
+
+✅ Crear view | Spotify Competition
+
+CREATE OR REPLACE VIEW `proyecto-hipotesis-403717.Pruebas.Spotify_Competition` AS
+SELECT S.*, C in_apple_playlists,in_apple_charts,in_deezer_playlists,in_deezer_charts,
+FROM `proyecto-hipotesis-403717.Pruebas.Spotify_limpio` AS S
+LEFT JOIN
+`proyecto-hipotesis-403717.Pruebas.Competition_limpia` AS C
+ON 
+S.track_id = C.track_id 
+
+✅ Crear view | Union tablas | Spotify, Competition, Technical info limpia
+
+CREATE OR REPLACE VIEW
+  `proyecto-hipotesis-403717.Pruebas.Union_tablas` AS
+SELECT
+  F.*,
+  U. bpm,
+  danceability__,
+  valence__,
+  energy__,
+  acousticness__,
+  instrumentalness__,
+  liveness__,
+  speechiness__,
+FROM
+  `proyecto-hipotesis-403717.Pruebas.Spotify_Competition` AS F
+LEFT JOIN
+  `proyecto-hipotesis-403717.Pruebas.Technical_info_limpia` AS U
+ON
+  F.track_id=U.track_id
+
+☑️ Correlaciones | Union tablas
+
+ SELECT
+  CORR(bpm, stream_limpia) AS corr_bpm,
+  CORR(in_spotify_charts, in_deezer_charts) AS corr_spot_deez,
+  CORR(in_spotify_charts, in_apple_charts) AS corr_spot_apple,
+  CORR(numero_canciones, stream_limpia) AS corr_canciones_stream,
+  CORR(valence__, stream_limpia) AS corr_valence_stream,
+  CORR(energy__, stream_limpia) AS corr_energy_stream,
+  CORR(acousticness__, stream_limpia) AS corr_acoust_stream,
+  CORR(instrumentalness__,stream_limpia) AS corr_instru_stream,
+  CORR(liveness__, stream_limpia) AS corr_live_stream,
+  CORR(speechiness__, stream_limpia) AS corr_spee_stream,
+  CORR(stream_limpia, total_playlists) AS corre_stream_playlists,
+  CORR(stream_limpia, danceability__) AS corre_stream_dance,
+FROM
+  `proyecto-hipotesis-403717.Pruebas.Union_tablas` 
+	
+☑️ Tabla auxiliar | Union tablas️
+
+ WITH
+  canciones_por_artist AS(
+  SELECT
+    artist_s__name_limpio,
+    COUNT (DISTINCT track_name_limpio) AS numero_canciones
+  FROM
+    `proyecto-hipotesis-403717.Pruebas.Union_tablas`
+  WHERE
+    artist_count=1
+  GROUP BY
+    artist_s__name_limpio )
+SELECT
+  artist_s__name_limpio,
+  numero_canciones
+FROM
+  canciones_por_artist AS c_u 
