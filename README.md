@@ -62,5 +62,9 @@ El conjunto de datos está disponible para descargar en este enlace 'https://bit
 
 ## Chequea mis consultas en SQL
 
+Aquí 'https://bit.ly/3xDSMvh'
+
 ## Dashboard en Power BI
+
+
 
