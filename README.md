@@ -21,7 +21,7 @@ Validar o refutar estas hipótesis mediante un análisis de datos profundo. A tr
 
 ## Insumos
 
-El conjunto de datos está disponible para descargar en este enlace ''
+El conjunto de datos está disponible para descargar en este enlace 'https://bit.ly/3Q4e77g'
 
 ## Herramientas que se usaron para el análisis
 
