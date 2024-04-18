@@ -46,26 +46,27 @@ El conjunto de datos está disponible para descargar en este enlace 'https://bit
 ## ¿Cuál fue el proceso de trabajo?
 
 
-| **Procesar y preparar la base de datos**                               | **Análisis exploratorio**                                    | **Técnica de análisis** |
-|----------------|---------------------------|------------------------------------------------------|
-| ▪️ Importación de datos a BigQuery               | ▪️ Agrupar datos según variables categóricas  |  ▪️ Validación de hipótesis a través de la prueba de Mann-Whitney U para muestras no paramétricas|
-| ▪️ Identificar y manejar valores nulos                                  | ▪️ Visualizar las variables categóricas                       | ▪️ Regresión lineal |
-| ▪️ Identificar y manejar valores duplicados                             | ▪️ Aplicar medidas de tendencia central y de dispersión      |
-| ▪️ Identificar y manejar datos fuera del alcance del análisis           | ▪️ Visualizar distribución - histogramas     |
-| ▪️ Identificar y manejar datos discrepantes en variables categóricas    | ▪️ Cálculo de cuartiles |
-| ▪️ Identificar y manejar datos discrepantes en variables numéricas      | ▪️ Cálculo de la correlación entre variables |
-| ▪️ Comprobar y cambiar tipo de dato                                     | |
-| ▪️ Creación de nuevas variables                                         |                                             |
-| ▪️ Unión de tablas                                                      |                                            |
-| ▪️ Contruir tablas auxiliares                                           |                                                    |
-
+| **Procesar y preparar la base de datos**  | **Análisis exploratorio** | **Técnica de análisis** |
+|----------------|-----------------|---------------|
+| ▪️ Importación de datos a BigQuery | ▪️ Agrupar datos según variables categóricas  |  ▪️ Validación de hipótesis a través de la prueba de Mann-Whitney U para muestras no paramétricas|
+| ▪️ Identificar y manejar valores nulos  | ▪️ Visualizar las variables categóricas  | ▪️ Regresión lineal |
+| ▪️ Identificar y manejar valores duplicados | ▪️ Aplicar medidas de tendencia central y de dispersión      |
+| ▪️ Identificar y manejar datos fuera del alcance del análisis | ▪️ Visualizar distribución de los datos     |
+| ▪️ Identificar y manejar datos discrepantes en variables categóricas | ▪️ Cálculo de cuartiles |
+| ▪️ Identificar y manejar datos discrepantes en variables numéricas | ▪️ Cálculo de la correlación entre variables |
+| ▪️ Comprobar y cambiar tipo de dato  | |
+| ▪️ Creación de nuevas variables  |                                             |
+| ▪️ Unión de tablas |                                            |
+| ▪️ Contruir tablas auxiliares  |                                                    |
 
 
 ## Chequea mis consultas en SQL
 
-Aquí 'https://bit.ly/3xDSMvh'
+▪️ Aquí 'https://bit.ly/3xDSMvh'
 
-## Dashboard en Power BI
+## Spotify | Dashboard en Power BI
+
+![Spotify](https://raw.githubusercontent.com/MayteLlerena/Spotify/main/Dashboard%20Principal%20-%20Spotify.png)
 
 
 
